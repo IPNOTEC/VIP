@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPNOTEC VIP Onboarding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --color1: #8F00F0;
+      --color2: #4B0082;
+      --color3: #0070B0;
+      --color4: #00B0F0;
+      --color5: #45DE10;
+      --color6: #FFF000;
+      --color7: #FF6900;
+      --color8: #FF000F;
+      --black: #000000;
+      --white: #FFFFFF;
+      --gray: #707070;
+      --current-color: #00B0F0;
+      
+      /* VIP Colors */
+      --violet: #8F00FF;
+      --indigo: #4B0082;
+      --blue: #0077B6;
+      --green: #00FF00;
+      --yellow: #FFFF00;
+      --orange: #FF8C00;
+      --red: #FF0000;
+      --grey: #777777;
+      
+      /* Backgrounds */
+      --dark-bg: #0a0a0a;
+      --card-bg: rgba(30, 30, 30, 0.9);
+      
+      /* Effects */
+      --neon-glow: 0 0 20px currentColor;
+      --transition: all 0.3s ease;
+      
+      /* Fonts */
+      --font-main: 'Space Mono', monospace;
+      --font-futuristic: 'Orbitron', sans-serif;
+    }
+
+    body {
+      background-color: var(--black);
+      color: var(--white);
+      font-family: var(--font-main);
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* I-ID Generator Styles */
+    .terminal-box {
+      background: rgba(0, 0, 0, 0.8);
+      border: 4px solid var(--current-color);
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 0 20px var(--current-color);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .description {
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+      text-transform: uppercase;
+      color: var(--current-color);
+      text-shadow: 0 0 10px var(--current-color);
+      margin-top: 0.5rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 2px;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      color: var(--white);
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    input, select {
+      background: rgba(0, 0, 0, 0.7);
+      color: var(--white);
+      border: 1px solid var(--current-color);
+      padding: 0.9rem;
+      border-radius: 8px;
+      width: 100%;
+      font-family: inherit;
+      font-size: 1.05rem;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--white);
+      box-shadow: 0 0 10px var(--current-color);
+    }
+
+    button {
+      background: var(--current-color);
+      color: var(--black);
+      font-weight: bold;
+      padding: 1rem;
+      border: none;
+      margin-top: 2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 15px var(--current-color);
+      font-family: inherit;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px var(--current-color);
+    }
+
+    .output {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 1.5rem;
+      border: 1px solid var(--current-color);
+      border-radius: 8px;
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      color: var(--white);
+      display: none;
+      box-shadow: inset 0 0 10px var(--current-color);
+    }
+
+    .output.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .output div {
+      margin-bottom: 0.8rem;
+      line-height: 1.6;
+      word-wrap: break-word;
+    }
+
+    .number { 
+      color: var(--current-color); 
+      font-weight: bold;
+    }
+    
+    .highlight { 
+      color: var(--white); 
+      font-weight: bold;
+    }
+
+    .color-options {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.5rem;
+      margin-top: 1rem;
+      position: relative;
+    }
+
+    .color-option {
+      height: 40px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .color-option:hover {
+      transform: scale(1.05);
+    }
+
+    .color-option.selected {
+      border: 2px solid var(--white);
+      box-shadow: 0 0 10px var(--white);
+    }
+
+    .color-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 10;
+      border: 1px solid var(--current-color);
+      pointer-events: none;
+    }
+
+    .color-option:hover .color-tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .user-id-output {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--current-color);
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.3rem;
+      display: none;
+    }
+
+    .user-id-output.active {
+      display: block;
+    }
+
+    .future-id-section {
+      display: none;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px dashed var(--current-color);
+    }
+
+    .future-id-section.active {
+      display: block;
+    }
+
+    .future-id-display {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-top: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .future-id-part1 {
+      color: var(--current-color);
+    }
+
+    .future-id-part2 {
+      color: var(--current-color);
+    }
+
+    .future-id-part3 {
+      color: var(--white);
+    }
+
+    /* VIP Services Styles */
+    .vip-services {
+      display: none;
+      margin-top: 3rem;
+    }
+
+    .vip-services.active {
+      display: block;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 40px;
+      border-left: 8px solid;
+      transition: var(--transition);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--neon-glow);
+    }
+    
+    /* Color classes */
+    .violet { border-color: var(--violet); color: var(--violet); }
+    .indigo { border-color: var(--indigo); color: var(--indigo); }
+    .blue { border-color: var(--blue); color: var(--blue); }
+    .green { border-color: var(--green); color: var(--green); }
+    .yellow { border-color: var(--yellow); color: var(--black); }
+    .orange { border-color: var(--orange); color: var(--orange); }
+    .red { border-color: var(--red); color: var(--red); }
+    .grey { border-color: var(--grey); color: var(--grey); }
+    
+    .form-group {
+      margin-bottom: 30px;
+    }
+    
+    .plans-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .plan-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      border-left: 8px solid var(--green);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .plan-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,255,0,0.3);
+    }
+    
+    .plan-card.active {
+      box-shadow: 0 0 20px var(--green), 0 0 40px rgba(0,255,0,0.4);
+      transform: scale(1.02);
+    }
+    
+    .plan-header {
+      padding: 1.5rem;
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .plan-name {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--green);
+      font-family: var(--font-futuristic);
+    }
+    
+    .plan-price {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--green);
+      font-family: var(--font-futuristic);
+      text-shadow: 0 0 15px var(--green);
+    }
+    
+    .plan-summary {
+      padding: 1.5rem;
+      font-size: 1.3rem;
+      color: #ccc;
+      border-bottom: 2px solid #333;
+    }
+    
+    .plan-details {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.5s ease;
+      color: #aaa;
+      font-size: 1.2rem;
+    }
+    
+    .plan-card.active .plan-details {
+      max-height: 1000px;
+      padding: 1.5rem;
+    }
+    
+    .target-audience {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: rgba(0,100,0,0.2);
+      border-radius: 10px;
+      font-style: italic;
+      font-size: 1.2rem;
+    }
+    
+    /* Membership Card Styles */
+    .membership-card {
+      background: linear-gradient(135deg, #111 0%, #333 100%);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 40px auto;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      max-width: 600px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(0,0,0,0.7);
+    }
+    
+    .membership-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 15px;
+      background: linear-gradient(90deg, 
+          var(--violet) 0%, 
+          var(--indigo) 14%, 
+          var(--blue) 28%, 
+          var(--green) 42%, 
+          var(--yellow) 56%, 
+          var(--orange) 70%, 
+          var(--red) 84%);
+    }
+    
+    .card-header {
+      text-align: center;
+      padding: 20px 0;
+      font-weight: bold;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      font-family: var(--font-futuristic);
+      text-shadow: 0 0 15px currentColor;
+    }
+    
+    .id-section {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      font-size: var(--text-lg);
+    }
+    
+    .id-number {
+      font-family: var(--font-main);
+      font-weight: bold;
+    }
+    
+    .qr-code {
+      width: 120px;
+      height: 120px;
+      background: #222;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      font-size: 1rem;
+      text-align: center;
+    }
+    
+    .benefits-list {
+      list-style-type: none;
+      margin-top: 30px;
+      font-size: var(--text-lg);
+    }
+    
+    .benefits-list li {
+      padding: 15px 0;
+      border-bottom: 1px solid #333;
+      display: flex;
+      align-items: center;
+    }
+    
+    .benefits-list li::before {
+      content: "✓";
+      margin-right: 15px;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    
+    .card-footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 1.2rem;
+      color: #aaa;
+      margin-top: 30px;
+      border-top: 2px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    /* Display Card Specific Styles */
+    .generated-id-card-content {
+      padding: 30px;
+      border-radius: 20px;
+      background-color: var(--black) !important;
+      border: 4px solid var(--violet);
+      box-shadow: 0 0 30px var(--violet), 0 0 40px var(--violet) inset;
+      color: var(--white);
+      text-shadow: 0 0 10px currentColor;
+      width: 100%;
+      max-width: 600px;
+      margin: 40px auto;
+      font-family: var(--font-main);
+      position: relative;
+      overflow: hidden;
+      font-size: var(--text-lg);
+    }
+    
+    .generated-id-card-content::before {
+      display:none;
+    }
+
+    .generated-id-card-content .card-header {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--yellow) !important;
+      margin-bottom: 30px;
+      text-shadow: 0 0 15px var(--orange);
+      font-family: var(--font-futuristic);
+    }
+
+    .generated-id-card-content .id-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px dashed var(--indigo);
+      font-size: var(--text-lg);
+    }
+
+    .generated-id-card-content .id-section div:first-child {
+      flex-grow: 1;
+    }
+
+    .generated-id-card-content .id-section div strong {
+      font-size: 1.5em;
+      color: var(--green);
+    }
+
+    .generated-id-card-content .id-section div div {
+      margin-bottom: 10px;
+      word-break: break-word;
+    }
+    
+    .generated-id-card-content .highlight {
+      color: var(--orange) !important;
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+
+    .generated-id-card-content .qr-code {
+      width: 120px;
+      height: 120px;
+      background-color: var(--white);
+      color: var(--black) !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 10px;
+      text-shadow: none !important;
+      margin-left: 20px;
+      flex-shrink: 0;
+    }
+
+    .generated-id-card-content .benefits-list {
+      list-style-type: none;
+      padding-left: 0;
+      margin-bottom: 30px;
+      font-size: var(--text-lg);
+    }
+
+    .generated-id-card-content .benefits-list li {
+      margin-bottom: 15px;
+      padding-left: 35px;
+      position: relative;
+      color: var(--blue);
+    }
+
+    .generated-id-card-content .benefits-list li::before {
+      content: "★";
+      position: absolute;
+      left: 0;
+      color: var(--yellow);
+      text-shadow: 0 0 10px var(--orange);
+      font-size: 1.5em;
+    }
+
+    .generated-id-card-content .card-footer {
+      text-align: center;
+      font-size: 1.2em;
+      color: var(--white) !important;
+      text-shadow: 0 0 10px currentColor;
+      border-top: 2px dashed var(--indigo);
+      padding-top: 20px;
+      margin-top: 30px;
+    }
+
+    /* Cyber elements */
+    .cyber-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+          linear-gradient(rgba(0, 150, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 150, 255, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .glow-line {
+      position: fixed;
+      height: 1px;
+      background: linear-gradient(90deg, 
+          transparent, 
+          #00f3ff, 
+          transparent);
+      filter: drop-shadow(0 0 10px #00f3ff);
+      animation: scan 8s infinite linear;
+      z-index: -1;
+    }
+    
+    @keyframes scan {
+      0% { top: 0%; opacity: 0; }
+      50% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      .terminal-box {
+        padding: 1.5rem;
+      }
+      
+      .color-options {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      h2 {
+        font-size: 1.3rem;
+      }
+      
+      h3 {
+        font-size: 1.1rem;
+      }
+      
+      .plans-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .generated-id-card-content .id-section {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .generated-id-card-content .qr-code {
+        margin-left: 0;
+        margin-top: 20px;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .plans-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .plans-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cyber-grid"></div>
+  <div class="glow-line" style="width: 80%; left: 10%"></div>
+  <div class="glow-line" style="width: 60%; left: 20%; animation-delay: -2s"></div>
+  
+  <div class="container">
+    <!-- I-ID Generator Section -->
+    <div class="terminal-box">
+      <h1>IPNOTEC I-ID Generator</h1>
+      <div class="description">[IPNOTEC aligns your phone number to your DOB with IP-CODE]</div>
+
+      <div class="input-group">
+        <label>Country Code:</label>
+        <select id="countryCode">
+          <option value="">Select Country</option>
+          <option value="54">Argentina (+54)</option>
+          <option value="61">Australia (+61)</option>
+          <option value="43">Austria (+43)</option>
+          <option value="32">Belgium (+32)</option>
+          <option value="55">Brazil (+55)</option>
+          <option value="1">Canada (+1)</option>
+          <option value="86">China (+86)</option>
+          <option value="45">Denmark (+45)</option>
+          <option value="20">Egypt (+20)</option>
+          <option value="358">Finland (+358)</option>
+          <option value="33">France (+33)</option>
+          <option value="49">Germany (+49)</option>
+          <option value="233">Ghana (+233)</option>
+          <option value="30">Greece (+30)</option>
+          <option value="852">Hong Kong (+852)</option>
+          <option value="91">India (+91)</option>
+          <option value="62">Indonesia (+62)</option>
+          <option value="353">Ireland (+353)</option>
+          <option value="972">Israel (+972)</option>
+          <option value="39">Italy (+39)</option>
+          <option value="81">Japan (+81)</option>
+          <option value="254">Kenya (+254)</option>
+          <option value="82">South Korea (+82)</option>
+          <option value="965">Kuwait (+965)</option>
+          <option value="60">Malaysia (+60)</option>
+          <option value="52">Mexico (+52)</option>
+          <option value="31">Netherlands (+31)</option>
+          <option value="64">New Zealand (+64)</option>
+          <option value="234">Nigeria (+234)</option>
+          <option value="47">Norway (+47)</option>
+          <option value="92">Pakistan (+92)</option>
+          <option value="63">Philippines (+63)</option>
+          <option value="48">Poland (+48)</option>
+          <option value="351">Portugal (+351)</option>
+          <option value="974">Qatar (+974)</option>
+          <option value="7">Russia (+7)</option>
+          <option value="966">Saudi Arabia (+966)</option>
+          <option value="65">Singapore (+65)</option>
+          <option value="27">South Africa (+27)</option>
+          <option value="34">Spain (+34)</option>
+          <option value="46">Sweden (+46)</option>
+          <option value="41">Switzerland (+41)</option>
+          <option value="886">Taiwan (+886)</option>
+          <option value="66">Thailand (+66)</option>
+          <option value="90">Turkey (+90)</option>
+          <option value="971">UAE (+971)</option>
+          <option value="44">United Kingdom (+44)</option>
+          <option value="1">United States (+1)</option>
+          <option value="84">Vietnam (+84)</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Phone Number:</label>
+        <input type="text" id="phone" placeholder="Enter phone number" />
+      </div>
+
+      <div class="input-group">
+        <label>Date of Birth:</label>
+        <input type="date" id="dob" />
+      </div>
+
+      <button onclick="generateIID()">GENERATE I-ID</button>
+
+      <div class="output" id="output">
+        <div>> Phone Sum: <span id="phoneSum" class="number"></span></div>
+        <div>> DOB Sum: <span id="dobSum" class="number"></span></div>
+        <div>> IPNOTEC CODE [IP-C]: <span id="ipcCode" class="number"></span></div>
+        <div>> I-ID: <span id="finalIID" class="number"></span></div>
+        <div class="highlight">This I-ID will be used to login to your IPNOTEC account with OTP verification.</div>
+      </div>
+
+      <div class="future-id-section" id="futureIdSection">
+        <h2>CREATE YOUR FUTURE ID</h2>
+        
+        <div class="input-group">
+          <label>Choose Your FUTURE TRIBE:</label>
+          <div class="color-options">
+            <div class="color-option" style="background-color: #8F00F0;" data-color="color1" data-code="VIP">
+              <span class="color-tooltip">Venture Capitalists & Wealth</span>
+            </div>
+            <div class="color-option" style="background-color: #4B0082;" data-color="color2" data-code="IPI">
+              <span class="color-tooltip">IT and Industrialists</span>
+            </div>
+            <div class="color-option" style="background-color: #0070B0;" data-color="color3" data-code="IPB">
+              <span class="color-tooltip">Branding and Marketing</span>
+            </div>
+            <div class="color-option" style="background-color: #45DE10;" data-color="color5" data-code="IPG">
+              <span class="color-tooltip">Green Footprint & Environmentalists</span>
+            </div>
+            <div class="color-option" style="background-color: #FFF000;" data-color="color6" data-code="IPY">
+              <span class="color-tooltip">Young Entrepreneurs & Educationalists</span>
+            </div>
+            <div class="color-option" style="background-color: #FF6900;" data-color="color7" data-code="IPO">
+              <span class="color-tooltip">Oracle of Bharat & Sanskrit Revivers</span>
+            </div>
+            <div class="color-option" style="background-color: #FF000F;" data-color="color8" data-code="IPR">
+              <span class="color-tooltip">Real Estate and Recreationists</span>
+            </div>
+            <div class="color-option" style="background-color: #FFFFFF; border: 1px solid #000;" data-color="white" data-code="IPW">
+              <span class="color-tooltip">Health and Policy Makers</span>
+            </div>
+            <div class="color-option" style="background-color: #707070;" data-color="gray" data-code="IPGY">
+              <span class="color-tooltip">NOMADS and Just CURIOUS</span>
+            </div>
+            <div class="color-option" style="background-color: #000000; border: 1px solid #333;" data-color="black" data-code="IPBL">
+              <span class="color-tooltip">Nothing</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Future City:</label>
+          <select id="futureCity">
+            <option value="">Select Your Future City</option>
+            <!-- Global Cities -->
+            <option value="ACC">Accra (ACC)</option>
+            <option value="ADL">Adelaide (ADL)</option>
+            <option value="AKL">Auckland (AKL)</option>
+            <option value="ALG">Algiers (ALG)</option>
+            <option value="AMS">Amsterdam (AMS)</option>
+            <option value="ARN">Stockholm (ARN)</option>
+            <option value="ATH">Athens (ATH)</option>
+            <option value="ATL">Atlanta (ATL)</option>
+            <option value="AUH">Abu Dhabi (AUH)</option>
+            <option value="BCN">Barcelona (BCN)</option>
+            <option value="BKK">Bangkok (BKK)</option>
+            <option value="BNE">Brisbane (BNE)</option>
+            <option value="BOG">Bogotá (BOG)</option>
+            <option value="BOM">Mumbai (BOM)</option>
+            <option value="BRU">Brussels (BRU)</option>
+            <option value="BUD">Budapest (BUD)</option>
+            <option value="BWN">Bandar Seri Begawan (BWN)</option>
+            <option value="CAI">Cairo (CAI)</option>
+            <option value="CCU">Kolkata (CCU)</option>
+            <option value="CDG">Paris (CDG)</option>
+            <option value="CGK">Jakarta (CGK)</option>
+            <option value="CPH">Copenhagen (CPH)</option>
+            <option value="CPT">Cape Town (CPT)</option>
+            <option value="DEL">Delhi (DEL)</option>
+            <option value="DEN">Denver (DEN)</option>
+            <option value="DFW">Dallas (DFW)</option>
+            <option value="DOH">Doha (DOH)</option>
+            <option value="DPS">Bali (DPS)</option>
+            <option value="DUB">Dublin (DUB)</option>
+            <option value="DUR">Durban (DUR)</option>
+            <option value="DXB">Dubai (DXB)</option>
+            <option value="EZE">Buenos Aires (EZE)</option>
+            <option value="FCO">Rome (FCO)</option>
+            <option value="FRA">Frankfurt (FRA)</option>
+            <option value="GIG">Rio de Janeiro (GIG)</option>
+            <option value="GRU">São Paulo (GRU)</option>
+            <option value="GVA">Geneva (GVA)</option>
+            <option value="HAV">Havana (HAV)</option>
+            <option value="HEL">Helsinki (HEL)</option>
+            <option value="HKG">Hong Kong (HKG)</option>
+            <option value="HNL">Honolulu (HNL)</option>
+            <option value="HYD">Hyderabad (HYD)</option>
+            <option value="ICN">Seoul (ICN)</option>
+            <option value="IST">Istanbul (IST)</option>
+            <option value="JFK">New York (JFK)</option>
+            <option value="JNB">Johannesburg (JNB)</option>
+            <option value="KHI">Karachi (KHI)</option>
+            <option value="KUL">Kuala Lumpur (KUL)</option>
+            <option value="LAS">Las Vegas (LAS)</option>
+            <option value="LAX">Los Angeles (LAX)</option>
+            <option value="LHR">London (LHR)</option>
+            <option value="LIM">Lima (LIM)</option>
+            <option value="LIS">Lisbon (LIS)</option>
+            <option value="LOS">Lagos (LOS)</option>
+            <option value="MAA">Chennai (MAA)</option>
+            <option value="MAD">Madrid (MAD)</option>
+            <option value="MEL">Melbourne (MEL)</option>
+            <option value="MEX">Mexico City (MEX)</option>
+            <option value="MIA">Miami (MIA)</option>
+            <option value="MNL">Manila (MNL)</option>
+            <option value="MUC">Munich (MUC)</option>
+            <option value="MXP">Milan (MXP)</option>
+            <option value="NBO">Nairobi (NBO)</option>
+            <option value="ORD">Chicago (ORD)</option>
+            <option value="OSL">Oslo (OSL)</option>
+            <option value="PEK">Beijing (PEK)</option>
+            <option value="PER">Perth (PER)</option>
+            <option value="PRG">Prague (PRG)</option>
+            <option value="PTY">Panama City (PTY)</option>
+            <option value="PVG">Shanghai (PVG)</option>
+            <option value="RUH">Riyadh (RUH)</option>
+            <option value="SCL">Santiago (SCL)</option>
+            <option value="SEA">Seattle (SEA)</option>
+            <option value="SFO">San Francisco (SFO)</option>
+            <option value="SIN">Singapore (SIN)</option>
+            <option value="SYD">Sydney (SYD)</option>
+            <option value="TLV">Tel Aviv (TLV)</option>
+            <option value="TPE">Taipei (TPE)</option>
+            <option value="VIE">Vienna (VIE)</option>
+            <option value="WAW">Warsaw (WAW)</option>
+            <option value="YVR">Vancouver (YVR)</option>
+            <option value="YYZ">Toronto (YYZ)</option>
+            <option value="ZRH">Zurich (ZRH)</option>
+            
+            <!-- Indian Cities -->
+            <option value="AMD">Ahmedabad (AMD)</option>
+            <option value="BLR">Bangalore (BLR)</option>
+            <option value="CCJ">Kozhikode (CCJ)</option>
+            <option value="COK">Kochi (COK)</option>
+            <option value="GOI">Goa (GOI)</option>
+            <option value="HYD">Hyderabad (HYD)</option>
+            <option value="IXA">Agartala (IXA)</option>
+            <option value="IXB">Bagdogra (IXB)</option>
+            <option value="IXC">Chandigarh (IXC)</option>
+            <option value="IXE">Mangalore (IXE)</option>
+            <option value="IXJ">Jammu (IXJ)</option>
+            <option value="IXL">Leh (IXL)</option>
+            <option value="IXM">Madurai (IXM)</option>
+            <option value="IXR">Ranchi (IXR)</option>
+            <option value="IXS">Silchar (IXS)</option>
+            <option value="IXU">Aurangabad (IXU)</option>
+            <option value="IXZ">Port Blair (IXZ)</option>
+            <option value="JAI">Jaipur (JAI)</option>
+            <option value="LKO">Lucknow (LKO)</option>
+            <option value="PAT">Patna (PAT)</option>
+            <option value="PNQ">Pune (PNQ)</option>
+            <option value="SXR">Srinagar (SXR)</option>
+            <option value="TRV">Thiruvananthapuram (TRV)</option>
+            <option value="VGA">Vijayawada (VGA)</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label>Your Future Name (or generate random):</label>
+          <div style="display: flex; gap: 1rem;">
+            <input type="text" id="futureName" placeholder="Enter your future name" style="flex: 1;" />
+            <button onclick="generateRandomName()" style="margin-top: 0; width: auto;">RANDOM</button>
+          </div>
+        </div>
+
+        <button onclick="generateFutureID()">GENERATE FUTURE ID</button>
+
+        <div class="user-id-output" id="futureIdOutput">
+          <div style="color: white;">YOUR IPNOTEC FUTURE ID IS:</div>
+          <div class="future-id-display">
+            <span class="future-id-part1" id="futureIdPart1"></span>.<span class="future-id-part2" id="futureIdPart2"></span>.<span class="future-id-part3" id="futureIdPart3"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIP Services Section -->
+    <div class="vip-services" id="vipServices">
+      <div class="card violet">
+        <h2>IPNOTEC.VIP SERVICES</h2>
+        <p style="font-size: 1.1rem;">Select your premium offerings to complete your VIP membership</p>
+        
+        <div class="form-group">
+          <label for="currency">SELECT CURRENCY</label>
+          <select id="currency">
+            <option value="INR">Indian Rupee (INR)</option>
+            <option value="USD">US Dollar (USD)</option>
+            <option value="EUR">Euro (EUR)</option>
+            <option value="GBP">British Pound (GBP)</option>
+            <option value="AED">UAE Dirham (AED)</option>
+            <option value="SGD">Singapore Dollar (SGD)</option>
+          </select>
+        </div>
+        
+        <h3>EXPLORE ALL MEMBERSHIP PLANS</h3>
+        <p style="font-size: 1.1rem;">Choose the plan that matches your entrepreneurial journey</p>
+        
+        <div class="plans-container">
+          <div class="plan-card" onclick="toggleCard(this)">
+            <div class="plan-header">
+              <div class="plan-name">MANDATORY</div>
+              <div class="plan-price">₹1001</div>
+            </div>
+            <div class="plan-summary">
+              One-time fee to create your unique I-ID linked to your phone number
+            </div>
+            <div class="plan-details">
+              <ul class="benefits-list">
+                <li>Creates your permanent <span class="highlight">IPNOTEC Profile ID (I-ID)</span></li>
+                <li>One phone number = One unique ID (non-transferable)</li>
+                <li>Lifetime membership number generation</li>
+                <li>Basic access to IPNOTEC ecosystem</li>
+              </ul>
+              <div class="target-audience">
+                Required for all users to access any IPNOTEC services
+              </div>
+            </div>
+          </div>
+
+          <div class="plan-card" onclick="toggleCard(this)">
+            <div class="plan-header">
+              <div class="plan-name">CORE</div>
+              <div class="plan-price">₹101</div>
+            </div>
+            <div class="plan-summary">
+              Essential networking and multiverse access for hustlers and creators
+            </div>
+            <div class="plan-details">
+              <ul class="benefits-list">
+                <li>Access to <span class="highlight">VIBGYOR Networking</span> platform</li>
+                <li>IPNOTEC MULTIVERSE Game with city-based clans</li>
+                <li>Personal expense calculator with AI analysis</li>
+                <li>Minimalistic phone app with premium address book</li>
+                <li>Family health tracker with reminders</li>
+                <li>Curated astrology insights and event predictions</li>
+              </ul>
+              <div class="target-audience">
+                Target Audience: Hustlers, Marketers, Brand Builders, Networkers
+              </div>
+            </div>
+          </div>
+
+          <div class="plan-card" onclick="toggleCard(this)">
+            <div class="plan-header">
+              <div class="plan-name">CO-WORKING</div>
+              <div class="plan-price">₹10001</div>
+            </div>
+            <div class="plan-summary">
+              Digital nomad package with virtual PC and co-working access
+            </div>
+            <div class="plan-details">
+              <ul class="benefits-list">
+                <li><span class="highlight">IPNOTEC VIRTUAL PC</span> - cloud-based workstation</li>
+                <li>Phone-less and keyless ecosystem access</li>
+                <li>Premium @ipnotec.vip domain (Made in Bharat)</li>
+                <li>Co-working spaces with free seating</li>
+                <li>Green screen jamming areas</li>
+                <li>Creative studio access (time-limited)</li>
+                <li>Hyperlocal Clubicles within 15 mins reach</li>
+                <li>Global event calendar access</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="plan-card" onclick="toggleCard(this)">
+            <div class="plan-header">
+              <div class="plan-name">HOSTEL</div>
+              <div class="plan-price">₹10001</div>
+            </div>
+            <div class="plan-summary">
+              Premium dormitory-style living with networking spaces
+            </div>
+            <div class="plan-details">
+              <ul class="benefits-list">
+                <li>Modern, minimalistic hostel accommodation</li>
+                <li>Separate floors for men and women</li>
+                <li>Networking rooftop jamming areas</li>
+                <li>High-speed internet and workstations</li>
+                <li>Weekly curated networking events</li>
+                <li>Access to global IPNOTEC event calendar</li>
+                <li>Basic health and wellness facilities</li>
+              </ul>
+              <div class="target-audience">
+                Ideal for digital nomads and young professionals
+              </div>
+            </div>
+          </div>
+
+          <div class="plan-card" onclick="toggleCard(this)">
+            <div class="plan-header">
+              <div class="plan-name">VIP HOMES</div>
+              <div class="plan-price">₹100001</div>
+            </div>
+            <div class="plan-summary">
+              Premium family living with full IoT integration
+            </div>
+            <div class="plan-details">
+              <ul class="benefits-list">
+                <li>Accommodation for <span class="highlight">4 family members/friends</span></li>
+                <li>Primary account + 3 sub-accounts</li>
+                <li>Smart home IoT integration</li>
+                <li>Personalized profile experience</li>
+                <li>Priority access to all IPNOTEC events</li>
+                <li>Dedicated family health tracking</li>
+                <li>24/7 concierge service</li>
+                <li>Monthly professional networking events</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="plan-card" onclick="toggleCard(this)">
+            <div class="plan-header">
+              <div class="plan-name">HOME OFFICE</div>
+              <div class="plan-price">₹100001</div>
+            </div>
+            <div class="plan-summary">
+              Complete office solution for small businesses
+            </div>
+            <div class="plan-details">
+              <ul class="benefits-list">
+                <li>Office space for <span class="highlight">10 employees</span></li>
+                <li>No long-term commitments</li>
+                <li>Fully furnished workspace</li>
+                <li>High-speed internet and IT infrastructure</li>
+                <li>Meeting rooms and conference facilities</li>
+                <li>Administrative support available</li>
+                <li>Flexible scaling options</li>
+                <li>Access to IPNOTEC business network</li>
+              </ul>
+              <div class="target-audience">
+                Perfect for startups and small businesses avoiding capital expenditure
+              </div>
+            </div>
+          </div>
+
+          <div class="plan-card" onclick="toggleCard(this)">
+            <div class="plan-header">
+              <div class="plan-name">INVESTOR</div>
+              <div class="plan-price">₹1000001</div>
+            </div>
+            <div class="plan-summary">
+              3-year fractional ownership with profit sharing
+            </div>
+            <div class="plan-details">
+              <ul class="benefits-list">
+                <li><span class="highlight">Partial ownership</span> of IPNOTEC properties</li>
+                <li>3-year lock-in period</li>
+                <li>Share in property appreciation</li>
+                <li>Profit sharing from operations</li>
+                <li>Priority access to all facilities</li>
+                <li>VIP status across ecosystem</li>
+                <li>Quarterly financial reports</li>
+                <li>Option to renew after 3 years</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="plan-card" onclick="toggleCard(this)">
+            <div class="plan-header">
+              <div class="plan-name">PARTNER-X</div>
+              <div class="plan-price">₹10000001</div>
+            </div>
+            <div class="plan-summary">
+              City-level leadership with 5% collective equity
+            </div>
+            <div class="plan-details">
+              <ul class="benefits-list">
+                <li>One of <span class="highlight">10 Partners per city</span></li>
+                <li>5% collective equity share</li>
+                <li>6-year agreement</li>
+                <li>IPNOTEC Leased Range Rover (maintained)</li>
+                <li>Decision rights in local operations</li>
+                <li>Revenue sharing from city operations</li>
+                <li>Founding member status</li>
+                <li>Access to all IPNOTEC properties worldwide</li>
+              </ul>
+              <div class="target-audience">
+                Vision: 10 Partner-X /City 
+              </div>
+            </div>
+          </div>
+
+          <div class="plan-card" onclick="toggleCard(this)">
+            <div class="plan-header">
+              <div class="plan-name">ALPHA</div>
+              <div class="plan-price">₹100000001</div>
+            </div>
+            <div class="plan-summary">
+              City leadership with 3% equity and Range Rover
+            </div>
+            <div class="plan-details">
+              <ul class="benefits-list">
+                <li><span class="highlight">One Alpha per city</span></li>
+                <li>3% collective equity share</li>
+                <li>12-year agreement</li>
+                <li>IPNOTEC Leased Range Rover (maintained)</li>
+                <li>City leadership rights</li>
+                <li>Higher revenue share percentage</li>
+                <li>Strategic decision-making input</li>
+                <li>Featured in all marketing materials</li>
+              </ul>
+              <div class="target-audience">
+                Vision: Simultaneous Range Rover delivery event for 110 partners (DEFENDER 110)
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <button onclick="generateVIPCard()">GENERATE VIP MEMBERSHIP CARD</button>
+      </div>
+      
+      <div id="membership-card-container" class="hidden">
+        <div id="membership-card-content" class="generated-id-card-content">
+          <div class="card-header">IPNOTEC VIP MEMBER CARD</div>
+          <div class="id-section">
+            <div>
+              <div><strong>[Name]</strong></div>
+              <div>[Phone]</div>
+              <div>[Card Type]</div>
+              <div>[Slot Info]</div>
+              <div class="highlight">[Equity]</div>
+            </div>
+            <div class="qr-code">QR<br>CODE</div>
+          </div>
+          <ul class="benefits-list"><li>[Perks]</li></ul>
+          <div class="card-footer"> VIOLET | Powered by IPNOTEC</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentColor = 'color4';
+    let currentColorCode = 'IPB';
+    let ipcCode = 0;
+    let finalIID = '';
+    let futureID = '';
+
+    // Color name mappings
+    const colorNames = {
+      color1: "VIP",
+      color2: "IPI",
+      color3: "IPB",
+      color5: "IPG",
+      color6: "IPY",
+      color7: "IPO",
+      color8: "IPR",
+      white: "IPW",
+      gray: "IPGY",
+      black: "IPBL"
+    };
+
+    // Random name generators by color
+    const randomNames = {
+      color1: ["Nexus", "Quantum", "Vortex", "Nova", "Orion", "Zenith", "Eclipse"],
+      color2: ["Neptune", "Azure", "Mariner", "Abyss", "Deep", "Triton", "Cobalt"],
+      color3: ["Aero", "Stratus", "Cirrus", "Zephyr", "Nimbus", "Cumulus", "Sky"],
+      color5: ["Verdant", "Emerald", "Jade", "Forest", "Moss", "Olive", "Clover"],
+      color6: ["Helios", "Solar", "Phoenix", "Blaze", "Flare", "Radiance", "Dawn"],
+      color7: ["Ember", "Amber", "Topaz", "Copper", "Rust", "Tiger", "Sienna"],
+      color8: ["Crimson", "Scarlet", "Ruby", "Garnet", "Blaze", "Flame", "Rose"],
+      white: ["Pearl", "Ivory", "Alabaster", "Crystal", "Diamond", "Frost", "Ghost"],
+      gray: ["Slate", "Steel", "Iron", "Silver", "Mercury", "Ash", "Smoke"],
+      black: ["Void", "Abyss", "Onyx", "Shadow", "Eclipse", "Midnight", "Obsidian"]
+    };
+
+    // Set up color selection
+    document.addEventListener('DOMContentLoaded', function() {
+      const colorOptions = document.querySelectorAll('.color-option');
+      
+      colorOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          // Remove selected class from all options
+          colorOptions.forEach(opt => opt.classList.remove('selected'));
+          
+          // Add selected class to clicked option
+          this.classList.add('selected');
+          
+          // Set current color
+          currentColor = this.dataset.color;
+          currentColorCode = this.dataset.code;
+          
+          // Update UI colors
+          updateColorTheme();
+        });
+      });
+      
+      // Select default color
+      document.querySelector('.color-option[data-color="color4"]').classList.add('selected');
+      
+      // Set max date for DOB to today
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('dob').setAttribute('max', today);
+    });
+    
+    function updateColorTheme() {
+      const colorValue = getComputedStyle(document.documentElement).getPropertyValue(`--${currentColor}`);
+      document.documentElement.style.setProperty('--current-color', colorValue);
+    }
+    
+    function digitalRoot(num) {
+      while (num >= 10) {
+        num = num.toString().split('').reduce((a, b) => a + parseInt(b), 0);
+      }
+      return num;
+    }
+    
+    function validatePhone(phone) {
+      // Remove all non-digit characters
+      return phone.replace(/\D/g, '');
+    }
+    
+    function generateIID() {
+      // Get country code and phone number
+      const countryCode = document.getElementById('countryCode').value;
+      const phone = validatePhone(document.getElementById('phone').value);
+      
+      if (countryCode.length === 0) {
+        alert("Please select a country code.");
+        return;
+      }
+      
+      if (phone.length === 0) {
+        alert("Please enter a valid phone number.");
+        return;
+      }
+      
+      // Get date of birth
+      const dobRaw = document.getElementById('dob').value;
+      
+      if (!dobRaw) {
+        alert("Please enter a valid Date of Birth.");
+        return;
+      }
+      
+      // Combine country code and phone number
+      const phoneDigits = countryCode + phone;
+      
+      // Calculate phone sum and digital root
+      const phoneSum = phoneDigits.split('').reduce((sum, d) => sum + parseInt(d), 0);
+      const phoneSingle = digitalRoot(phoneSum);
+      
+      // Calculate DOB sum and digital root
+      const dobDigits = dobRaw.replace(/\D/g, '');
+      const dobSum = dobDigits.split('').reduce((sum, d) => sum + parseInt(d), 0);
+      const dobSingle = digitalRoot(dobSum);
+      
+      // Calculate IP-Code
+      let ipc = dobSingle - phoneSingle;
+      ipcCode = ipc >= 0 ? ipc : 9 + ipc;
+      
+      // Generate I-ID
+      finalIID = phoneDigits + ipcCode;
+      
+      // Display results
+      document.getElementById('output').classList.add('active');
+      document.getElementById('phoneSum').innerText = phoneSingle;
+      document.getElementById('dobSum').innerText = dobSingle;
+      document.getElementById('ipcCode').innerText = ipcCode;
+      document.getElementById('finalIID').innerText = finalIID;
+      
+      // Show Future ID section
+      document.getElementById('futureIdSection').classList.add('active');
+      
+      // Scroll to Future ID section
+      document.getElementById('futureIdSection').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function generateRandomName() {
+      const names = randomNames[currentColor];
+      const randomName = names[Math.floor(Math.random() * names.length)];
+      document.getElementById('futureName').value = randomName;
+    }
+    
+    function generateFutureID() {
+      const futureCity = document.getElementById('futureCity').value;
+      let futureName = document.getElementById('futureName').value.trim();
+      
+      if (!futureCity) {
+        alert("Please select your Future City.");
+        return;
+      }
+      
+      if (!futureName) {
+        alert("Please enter or generate your Future Name.");
+        return;
+      }
+      
+      // Format the Future ID
+      document.getElementById('futureIdPart1').innerText = currentColorCode;
+      document.getElementById('futureIdPart2').innerText = futureCity;
+      document.getElementById('futureIdPart3').innerText = futureName;
+      
+      // Apply color to parts
+      const colorValue = getComputedStyle(document.documentElement).getPropertyValue(`--${currentColor}`);
+      document.querySelector('.future-id-part1').style.color = colorValue;
+      document.querySelector('.future-id-part2').style.color = colorValue;
+      
+      // Show the Future ID
+      document.getElementById('futureIdOutput').classList.add('active');
+      
+      // Store the future ID
+      futureID = `${currentColorCode}.${futureCity}.${futureName}`;
+      
+      // Show VIP Services section
+      document.getElementById('vipServices').classList.add('active');
+      
+      // Scroll to VIP Services
+      document.getElementById('vipServices').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function toggleCard(card) {
+      // Close all other cards first
+      document.querySelectorAll('.plan-card').forEach(otherCard => {
+        if (otherCard !== card && otherCard.classList.contains('active')) {
+          otherCard.classList.remove('active');
+        }
+      });
+      
+      // Toggle clicked card
+      card.classList.toggle('active');
+      
+      // Scroll to card if opening
+      if (card.classList.contains('active')) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+    
+    function generateVIPCard() {
+      // Get the selected plan
+      const selectedPlan = document.querySelector('.plan-card.active');
+      if (!selectedPlan) {
+        alert("Please select a VIP membership plan.");
+        return;
+      }
+      
+      const planName = selectedPlan.querySelector('.plan-name').textContent;
+      const planPrice = selectedPlan.querySelector('.plan-price').textContent;
+      const planSummary = selectedPlan.querySelector('.plan-summary').textContent;
+      
+      // Get the currency
+      const currency = document.getElementById('currency').value;
+      
+      // Get the future ID components
+      const futureIdPart1 = document.getElementById('futureIdPart1').textContent;
+      const futureIdPart2 = document.getElementById('futureIdPart2').textContent;
+      const futureIdPart3 = document.getElementById('futureIdPart3').textContent;
+      
+      // Create the VIP card
+      const idCardContentDiv = document.getElementById('membership-card-content');
+      
+      idCardContentDiv.innerHTML = `
+        <div class="card-header">IPNOTEC VIP MEMBER CARD</div>
+        <div class="id-section">
+          <div>
+            <div><strong>${futureIdPart3}</strong></div>
+            <div>${finalIID}</div>
+            <div style="color: var(--${currentColor})">${planName} - ${futureIdPart1}.${futureIdPart2}</div>
+            <div>${currency} ${planPrice}</div>
+            <div class="highlight">${planSummary}</div>
+          </div>
+          <div class="qr-code">VIP<br>QR</div>
+        </div>
+        <ul class="benefits-list">
+          <li>Exclusive access to ${planName} benefits</li>
+          <li>Priority support and concierge services</li>
+          <li>VIP networking events and gatherings</li>
+          <li>Personalized IPNOTEC experience</li>
+        </ul>
+        <div class="card-footer" style="color: var(--${currentColor})">${futureIdPart1} | Powered by IPNOTEC.VIP</div>
+      `;
+      
+      // Update card border color
+      const colorValue = getComputedStyle(document.documentElement).getPropertyValue(`--${currentColor}`);
+      idCardContentDiv.style.borderColor = colorValue;
+      idCardContentDiv.style.boxShadow = `0 0 30px ${colorValue}, 0 0 40px ${colorValue} inset`;
+
+      const cardContainer = document.getElementById('membership-card-container');
+      cardContainer.classList.remove('hidden');
+      cardContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
