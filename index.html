@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPNOTEC VIP & Virtual PC</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>IPNOTEC.VIP | Future Identity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/chart.js" rel="stylesheet">
     <style>
         :root {
-            /* VIP Colors */
-            --violet: #8F00F0;
-            --indigo: #0070B0;
+            /* VIBGYOR colors */
+            --violet: #8F00FF;
+            --indigo: #0070C0;
             --blue: #00B0F0;
-            --green: #45DE10;
-            --yellow: #FFF000;
+            --green: #45de12;
+            --yellow: #FFFF00;
             --orange: #FF6900;
-            --red: #FF000F;
-            --grey: #707070;
+            --red: #FF0000;
             --white: #FFFFFF;
             --black: #000000;
+            --grey: #777777;
             
             /* Backgrounds */
             --dark-bg: #0a0a0a;
@@ -30,32 +30,368 @@
             --transition: all 0.3s ease;
             
             /* Fonts */
-            --font-main: 'Space Mono', monospace;
+            --font-main: 'Rajdhani', sans-serif;
+            --font-code: 'Space Mono', monospace;
             --font-futuristic: 'Orbitron', sans-serif;
-            --font-rajdhani: 'Rajdhani', sans-serif;
             
             /* Current Color */
             --current-color: #00B0F0;
             --active-color: #8F00FF;
+            --bg-color: #0c0c1d;
+            --panel-color: #121230;
+            --text-color: #FFFFFF;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            background-color: var(--dark-bg);
-            color: var(--white);
             font-family: var(--font-main);
-            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             min-height: 100vh;
-            padding: 20px;
-            box-sizing: border-box;
             overflow-x: hidden;
         }
-
+        
+        /* Screen Management */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+        }
+        
+        .screen.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+        
+        /* Background Circuit Animation */
+        .circuit-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        .circuit-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--current-color), transparent);
+            height: 2px;
+            width: 100%;
+            animation: circuitFlow 3s linear infinite;
+        }
+        
+        .circuit-node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--current-color);
+            box-shadow: 0 0 10px var(--current-color);
+        }
+        
+        @keyframes circuitFlow {
+            0% { background-position: -100% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        /* Social Media Colors */
+        .facebook-color { --current-color: #1877F2; }
+        .twitter-color { --current-color: #1DA1F2; }
+        .instagram-color { --current-color: #E4405F; }
+        .youtube-color { --current-color: #FF0000; }
+        .tiktok-color { --current-color: #69C9D0; }
+        .whatsapp-color { --current-color: #25D366; }
+        
+        /* Screen 1: Become Nothing */
+        .become-nothing-screen {
+            background: radial-gradient(circle at center, #0c0c1d 0%, #000000 100%);
+        }
+        
+        .blinking-i {
+            font-size: 15rem;
+            color: var(--current-color);
+            text-shadow: 0 0 20px var(--current-color);
+            animation: blink 2s infinite;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            font-family: var(--font-code);
+            font-weight: bold;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+        
+        .reset-button {
+            background: transparent;
+            border: 2px solid var(--current-color);
+            color: var(--current-color);
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-family: var(--font-code);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 0 15px var(--current-color);
+            margin-top: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .reset-button:hover {
+            background: rgba(0, 176, 240, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px var(--current-color);
+        }
+        
+        /* Card Styles */
+        .card {
+            background: rgba(0, 0, 30, 0.7);
+            border: 2px solid var(--current-color);
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 0 30px var(--current-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--current-color);
+            box-shadow: 0 0 10px var(--current-color);
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            color: var(--current-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--current-color);
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            color: var(--white);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        input, select {
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--white);
+            border: 1px solid var(--current-color);
+            padding: 12px 15px;
+            border-radius: 8px;
+            width: 100%;
+            font-family: var(--font-main);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--white);
+            box-shadow: 0 0 10px var(--current-color);
+        }
+        
+        .phone-container {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .phone-container .input-group {
+            flex: 1;
+        }
+        
+        .phone-container .input-group:first-child {
+            flex: 0 0 100px;
+        }
+        
+        button {
+            background: var(--current-color);
+            color: var(--black);
+            font-weight: bold;
+            padding: 12px;
+            border: none;
+            margin-top: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--current-color);
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--current-color);
+        }
+        
+        .result-display {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border: 1px solid var(--current-color);
+            border-radius: 8px;
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 1.2rem;
+            display: none;
+        }
+        
+        .result-display.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .number {
+            color: var(--current-color);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        /* Future Tribe Selection */
+        .color-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .color-option {
+            height: 60px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 5px;
+        }
+        
+        .color-option:hover {
+            transform: scale(1.05);
+        }
+        
+        .color-option.selected {
+            border: 2px solid var(--white);
+            box-shadow: 0 0 15px var(--white);
+        }
+        
+        /* Payment Section */
+        .payment-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--current-color);
+        }
+        
+        .payment-amount {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--current-color);
+        }
+        
+        /* Final Screen */
+        .final-screen {
+            text-align: center;
+        }
+        
+        .final-title {
+            font-size: 3rem;
+            color: var(--current-color);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px var(--current-color);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .user-id {
+            font-size: 2rem;
+            color: var(--white);
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--current-color);
+            border-radius: 10px;
+            box-shadow: 0 0 20px var(--current-color);
+        }
+        
+        .final-message {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            color: var(--current-color);
+        }
+        
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 10px;
+        }
+        
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+        
+        .progress-dot.active {
+            background: var(--current-color);
+            box-shadow: 0 0 10px var(--current-color);
+        }
+        
+        /* Virtual PC Styles */
         .section {
             width: 100%;
             max-width: 1200px;
@@ -71,298 +407,11 @@
             margin-bottom: 2rem;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-
+        
         .hidden {
             display: none;
         }
-
-        /* VIP Generator Styles */
-        .terminal-box {
-            background: rgba(0, 0, 0, 0.8);
-            border: 4px solid var(--current-color);
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 0 20px var(--current-color);
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .description {
-            color: var(--white);
-            text-align: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-        }
-
-        h1, h2, h3 {
-            text-align: center;
-            text-transform: uppercase;
-            color: var(--current-color);
-            text-shadow: 0 0 10px var(--current-color);
-            margin-top: 0.5rem;
-            margin-bottom: 1.5rem;
-            letter-spacing: 2px;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
-        }
-
-        h1 {
-            font-size: 2rem;
-        }
-
-        h2 {
-            font-size: 1.8rem;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-        }
-
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
-
-        label {
-            color: var(--white);
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        input, select {
-            background: rgba(0, 0, 0, 0.7);
-            color: var(--white);
-            border: 1px solid var(--current-color);
-            padding: 0.9rem;
-            border-radius: 8px;
-            width: 100%;
-            font-family: inherit;
-            font-size: 1.05rem;
-            transition: all 0.3s ease;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: var(--white);
-            box-shadow: 0 0 10px var(--current-color);
-        }
-
-        button {
-            background: var(--current-color);
-            color: var(--black);
-            font-weight: bold;
-            padding: 1rem;
-            border: none;
-            margin-top: 2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 0 15px var(--current-color);
-            font-family: inherit;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px var(--current-color);
-        }
-
-        .output {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 1.5rem;
-            border: 1px solid var(--current-color);
-            border-radius: 8px;
-            margin-top: 2rem;
-            font-size: 1.1rem;
-            color: var(--white);
-            display: none;
-            box-shadow: inset 0 0 10px var(--current-color);
-        }
-
-        .output.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .output div {
-            margin-bottom: 0.8rem;
-            line-height: 1.6;
-            word-wrap: break-word;
-        }
-
-        .number { 
-            color: var(--current-color); 
-            font-weight: bold;
-        }
         
-        .highlight { 
-            color: var(--white); 
-            font-weight: bold;
-        }
-
-        .color-options {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 0.5rem;
-            margin-top: 1rem;
-            position: relative;
-        }
-
-        .color-option {
-            height: 40px;
-            border-radius: 6px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .color-option:hover {
-            transform: scale(1.05);
-        }
-
-        .color-option.selected {
-            border: 2px solid var(--white);
-            box-shadow: 0 0 10px var(--white);
-        }
-
-        .color-tooltip {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 10;
-            border: 1px solid var(--current-color);
-            pointer-events: none;
-        }
-
-        .color-option:hover .color-tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .user-id-output {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--current-color);
-            border-radius: 8px;
-            text-align: center;
-            font-size: 1.3rem;
-            display: none;
-        }
-
-        .user-id-output.active {
-            display: block;
-        }
-
-        .future-id-section {
-            display: none;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px dashed var(--current-color);
-        }
-
-        .future-id-section.active {
-            display: block;
-        }
-
-        .future-id-display {
-            font-size: 1.5rem;
-            text-align: center;
-            margin-top: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .future-id-part1 {
-            color: var(--current-color);
-        }
-
-        .future-id-part2 {
-            color: var(--current-color);
-        }
-
-        .future-id-part3 {
-            color: var(--white);
-        }
-
-        /* Payment Button */
-        .payment-btn {
-            background: var(--green);
-            color: var(--black);
-            font-weight: bold;
-            padding: 1rem;
-            border: none;
-            margin-top: 2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 0 15px var(--green);
-            font-family: inherit;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            width: 100%;
-            display: none;
-        }
-        
-        .payment-btn.active {
-            display: block;
-        }
-        
-        .payment-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px var(--green);
-        }
-
-        /* Login Button */
-        .login-btn {
-            background: var(--green);
-            color: var(--black);
-            font-weight: bold;
-            padding: 1rem;
-            border: none;
-            margin-top: 2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 0 15px var(--green);
-            font-family: inherit;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            width: 100%;
-            display: none;
-        }
-        
-        .login-btn.active {
-            display: block;
-        }
-        
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px var(--green);
-        }
-
-        /* Virtual PC Styles */
         .wallpaper {
             position: relative;
             width: 100%;
@@ -495,11 +544,6 @@
             animation: pulse 4s infinite alternate;
         }
         
-        @keyframes pulse {
-            0% { text-shadow: 0 0 30px rgba(0, 243, 255, 0.5); }
-            100% { text-shadow: 0 0 50px rgba(0, 243, 255, 0.8); }
-        }
-        
         .tagline {
             font-family: var(--font-futuristic);
             font-size: clamp(1rem, 2vw, 1.5rem);
@@ -579,11 +623,6 @@
             background-color: var(--green);
             animation: blink 1s infinite;
             vertical-align: middle;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
         }
         
         .footer {
@@ -1191,7 +1230,7 @@
             box-shadow: 0 0 10px var(--active-color);
         }
         
-        /* Responsive */
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -1201,24 +1240,28 @@
                 padding: 1rem;
             }
             
-            .terminal-box {
-                padding: 1.5rem;
+            .card {
+                padding: 20px;
             }
             
-            .color-options {
-                grid-template-columns: repeat(3, 1fr);
+            .blinking-i {
+                font-size: 10rem;
             }
             
-            h1 {
+            .card-title {
                 font-size: 1.5rem;
             }
             
-            h2 {
-                font-size: 1.3rem;
+            .color-options {
+                grid-template-columns: repeat(2, 1fr);
             }
             
-            h3 {
-                font-size: 1.1rem;
+            .final-title {
+                font-size: 2rem;
+            }
+            
+            .user-id {
+                font-size: 1.5rem;
             }
             
             .virtual-pc {
@@ -1273,271 +1316,170 @@
         }
     </style>
 </head>
-<body>
-    <!-- VIP Generator Section -->
-    <section id="vipSection" class="section">
-        <div class="terminal-box">
-            <h1>IPNOTEC V[IP] Generator</h1>
-            <div class="description">[IPNOTEC aligns your phone number to your DOB with IP-CODE to generate your VIRTUAL-IP]</div>
-
+<body class="blue-theme">
+    <!-- Circuit Background -->
+    <div class="circuit-background" id="circuit-background"></div>
+    
+    <!-- Screen 1: Become Nothing -->
+    <div class="screen become-nothing-screen active" id="screen-1">
+        <div class="blinking-i" id="blinking-i">I</div>
+        <div class="reset-button" id="reset-button">
+            <i class="fas fa-redo"></i> F11 RESET
+        </div>
+    </div>
+    
+    <!-- Screen 2: PAST CARD -->
+    <div class="screen" id="screen-2">
+        <div class="card">
+            <h2 class="card-title">PAST CARD</h2>
+            <p style="text-align: center; margin-bottom: 1.5rem; opacity: 0.8;">Your past shapes your digital identity</p>
+            
             <div class="input-group">
-                <label>Country Code:</label>
-                <select id="countryCode">
-                    <option value="">Select Country</option>
-                    <option value="54">Argentina (+54)</option>
-                    <option value="61">Australia (+61)</option>
-                    <option value="43">Austria (+43)</option>
-                    <option value="32">Belgium (+32)</option>
-                    <option value="55">Brazil (+55)</option>
-                    <option value="1">Canada (+1)</option>
-                    <option value="86">China (+86)</option>
-                    <option value="45">Denmark (+45)</option>
-                    <option value="20">Egypt (+20)</option>
-                    <option value="358">Finland (+358)</option>
-                    <option value="33">France (+33)</option>
-                    <option value="49">Germany (+49)</option>
-                    <option value="233">Ghana (+233)</option>
-                    <option value="30">Greece (+30)</option>
-                    <option value="852">Hong Kong (+852)</option>
-                    <option value="91">India (+91)</option>
-                    <option value="62">Indonesia (+62)</option>
-                    <option value="353">Ireland (+353)</option>
-                    <option value="972">Israel (+972)</option>
-                    <option value="39">Italy (+39)</option>
-                    <option value="81">Japan (+81)</option>
-                    <option value="254">Kenya (+254)</option>
-                    <option value="82">South Korea (+82)</option>
-                    <option value="965">Kuwait (+965)</option>
-                    <option value="60">Malaysia (+60)</option>
-                    <option value="52">Mexico (+52)</option>
-                    <option value="31">Netherlands (+31)</option>
-                    <option value="64">New Zealand (+64)</option>
-                    <option value="234">Nigeria (+234)</option>
-                    <option value="47">Norway (+47)</option>
-                    <option value="92">Pakistan (+92)</option>
-                    <option value="63">Philippines (+63)</option>
-                    <option value="48">Poland (+48)</option>
-                    <option value="351">Portugal (+351)</option>
-                    <option value="974">Qatar (+974)</option>
-                    <option value="7">Russia (+7)</option>
-                    <option value="966">Saudi Arabia (+966)</option>
-                    <option value="65">Singapore (+65)</option>
-                    <option value="27">South Africa (+27)</option>
-                    <option value="34">Spain (+34)</option>
-                    <option value="46">Sweden (+46)</option>
-                    <option value="41">Switzerland (+41)</option>
-                    <option value="886">Taiwan (+886)</option>
-                    <option value="66">Thailand (+66)</option>
-                    <option value="90">Turkey (+90)</option>
-                    <option value="971">UAE (+971)</option>
-                    <option value="44">United Kingdom (+44)</option>
-                    <option value="1">United States (+1)</option>
-                    <option value="84">Vietnam (+84)</option>
-                </select>
+                <label for="dob">Enter Your Date of Birth</label>
+                <input type="date" id="dob" max="2023-12-31">
             </div>
-
-            <div class="input-group">
-                <label>Phone Number:</label>
-                <input type="text" id="phone" placeholder="Enter phone number" />
-            </div>
-
-            <div class="input-group">
-                <label>Date of Birth:</label>
-                <input type="date" id="dob" />
-            </div>
-
-            <button onclick="generateVIP()">GENERATE V[IP]</button>
-
-            <div class="output" id="output">
-                <div>> DOB Sum: <span id="dobSum" class="number"></span></div>
-                <div>> Phone Sum: <span id="phoneSum" class="number"></span></div>
-                <div>> MY IP: <span id="ipcCode" class="number"></span></div>
-                <div>> V[IP]: <span id="finalVIP" class="number"></span></div>
-                <div class="highlight">This V[IP] will be used to login to your IPNOTEC Account and for OTP verifications.</div>
-            </div>
-
-            <div class="future-id-section" id="futureIdSection">
-                <h2>CREATE YOUR FUTURE_ID</h2>
-                <div class="description">This will be your unique identifier in IPNOTEC WORLD and cannot be changed.</div>
-                
-                <div class="input-group">
-                    <label>Choose Your FUTURE TRIBE:</label>
-                    <div class="color-options">
-                        <div class="color-option" style="background-color: #8F00F0;" data-color="violet" data-code="VIP">
-                            <span class="color-tooltip">Venture Capitalists & Wealth</span>
-                        </div>
-                        <div class="color-option" style="background-color: #0070B0;" data-color="indigo" data-code="IPI">
-                            <span class="color-tooltip">IT and Industrialists</span>
-                        </div>
-                        <div class="color-option" style="background-color: #00B0F0;" data-color="blue" data-code="IPB">
-                            <span class="color-tooltip">Branding and Marketing</span>
-                        </div>
-                        <div class="color-option" style="background-color: #45DE10;" data-color="green" data-code="IPG">
-                            <span class="color-tooltip">Green Footprint & Environmentalists</span>
-                        </div>
-                        <div class="color-option" style="background-color: #FFF000;" data-color="yellow" data-code="IPY">
-                            <span class="color-tooltip">Young Entrepreneurs & Educationalists</span>
-                        </div>
-                        <div class="color-option" style="background-color: #FF6900;" data-color="orange" data-code="IPO">
-                            <span class="color-tooltip">Oracle of Bharat & Sanskrit Revivers</span>
-                        </div>
-                        <div class="color-option" style="background-color: #FF000F;" data-color="red" data-code="IPR">
-                            <span class="color-tooltip">Real Estate and Recreationists</span>
-                        </div>
-                        <div class="color-option" style="background-color: #FFFFFF; border: 1px solid #000;" data-color="white" data-code="IPW">
-                            <span class="color-tooltip">Health and Policy Makers</span>
-                        </div>
-                        <div class="color-option" style="background-color: #707070;" data-color="grey" data-code="IPGY">
-                            <span class="color-tooltip">NOMADS and Just CURIOUS</span>
-                        </div>
-                        <div class="color-option" style="background-color: #000000; border: 1px solid #333;" data-color="black" data-code="IPBL">
-                            <span class="color-tooltip">Anonymous</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label>Future City:</label>
-                    <select id="futureCity">
-                        <option value="">Select Your Future City</option>
-                        <!-- Global Cities -->
-                        <option value="ACC">Accra (ACC)</option>
-                        <option value="ADL">Adelaide (ADL)</option>
-                        <option value="AKL">Auckland (AKL)</option>
-                        <option value="ALG">Algiers (ALG)</option>
-                        <option value="AMS">Amsterdam (AMS)</option>
-                        <option value="ARN">Stockholm (ARN)</option>
-                        <option value="ATH">Athens (ATH)</option>
-                        <option value="ATL">Atlanta (ATL)</option>
-                        <option value="AUH">Abu Dhabi (AUH)</option>
-                        <option value="BCN">Barcelona (BCN)</option>
-                        <option value="BKK">Bangkok (BKK)</option>
-                        <option value="BNE">Brisbane (BNE)</option>
-                        <option value="BOG">Bogotá (BOG)</option>
-                        <option value="BOM">Mumbai (BOM)</option>
-                        <option value="BRU">Brussels (BRU)</option>
-                        <option value="BUD">Budapest (BUD)</option>
-                        <option value="BWN">Bandar Seri Begawan (BWN)</option>
-                        <option value="CAI">Cairo (CAI)</option>
-                        <option value="CCU">Kolkata (CCU)</option>
-                        <option value="CDG">Paris (CDG)</option>
-                        <option value="CGK">Jakarta (CGK)</option>
-                        <option value="CPH">Copenhagen (CPH)</option>
-                        <option value="CPT">Cape Town (CPT)</option>
-                        <option value="DEL">Delhi (DEL)</option>
-                        <option value="DEN">Denver (DEN)</option>
-                        <option value="DFW">Dallas (DFW)</option>
-                        <option value="DOH">Doha (DOH)</option>
-                        <option value="DPS">Bali (DPS)</option>
-                        <option value="DUB">Dublin (DUB)</option>
-                        <option value="DUR">Durban (DUR)</option>
-                        <option value="DXB">Dubai (DXB)</option>
-                        <option value="EZE">Buenos Aires (EZE)</option>
-                        <option value="FCO">Rome (FCO)</option>
-                        <option value="FRA">Frankfurt (FRA)</option>
-                        <option value="GIG">Rio de Janeiro (GIG)</option>
-                        <option value="GRU">São Paulo (GRU)</option>
-                        <option value="GVA">Geneva (GVA)</option>
-                        <option value="HAV">Havana (HAV)</option>
-                        <option value="HEL">Helsinki (HEL)</option>
-                        <option value="HKG">Hong Kong (HKG)</option>
-                        <option value="HNL">Honolulu (HNL)</option>
-                        <option value="HYD">Hyderabad (HYD)</option>
-                        <option value="ICN">Seoul (ICN)</option>
-                        <option value="IST">Istanbul (IST)</option>
-                        <option value="JFK">New York (JFK)</option>
-                        <option value="JNB">Johannesburg (JNB)</option>
-                        <option value="KHI">Karachi (KHI)</option>
-                        <option value="KUL">Kuala Lumpur (KUL)</option>
-                        <option value="LAS">Las Vegas (LAS)</option>
-                        <option value="LAX">Los Angeles (LAX)</option>
-                        <option value="LHR">London (LHR)</option>
-                        <option value="LIM">Lima (LIM)</option>
-                        <option value="LIS">Lisbon (LIS)</option>
-                        <option value="LOS">Lagos (LOS)</option>
-                        <option value="MAA">Chennai (MAA)</option>
-                        <option value="MAD">Madrid (MAD)</option>
-                        <option value="MEL">Melbourne (MEL)</option>
-                        <option value="MEX">Mexico City (MEX)</option>
-                        <option value="MIA">Miami (MIA)</option>
-                        <option value="MNL">Manila (MNL)</option>
-                        <option value="MUC">Munich (MUC)</option>
-                        <option value="MXP">Milan (MXP)</option>
-                        <option value="NBO">Nairobi (NBO)</option>
-                        <option value="ORD">Chicago (ORD)</option>
-                        <option value="OSL">Oslo (OSL)</option>
-                        <option value="PEK">Beijing (PEK)</option>
-                        <option value="PER">Perth (PER)</option>
-                        <option value="PRG">Prague (PRG)</option>
-                        <option value="PTY">Panama City (PTY)</option>
-                        <option value="PVG">Shanghai (PVG)</option>
-                        <option value="RUH">Riyadh (RUH)</option>
-                        <option value="SCL">Santiago (SCL)</option>
-                        <option value="SEA">Seattle (SEA)</option>
-                        <option value="SFO">San Francisco (SFO)</option>
-                        <option value="SIN">Singapore (SIN)</option>
-                        <option value="SYD">Sydney (SYD)</option>
-                        <option value="TLV">Tel Aviv (TLV)</option>
-                        <option value="TPE">Taipei (TPE)</option>
-                        <option value="VIE">Vienna (VIE)</option>
-                        <option value="WAW">Warsaw (WAW)</option>
-                        <option value="YVR">Vancouver (YVR)</option>
-                        <option value="YYZ">Toronto (YYZ)</option>
-                        <option value="ZRH">Zurich (ZRH)</option>
-                        
-                        <!-- Indian Cities -->
-                        <option value="AMD">Ahmedabad (AMD)</option>
-                        <option value="BLR">Bangalore (BLR)</option>
-                        <option value="CCJ">Kozhikode (CCJ)</option>
-                        <option value="COK">Kochi (COK)</option>
-                        <option value="GOI">Goa (GOI)</option>
-                        <option value="HYD">Hyderabad (HYD)</option>
-                        <option value="IXA">Agartala (IXA)</option>
-                        <option value="IXB">Bagdogra (IXB)</option>
-                        <option value="IXC">Chandigarh (IXC)</option>
-                        <option value="IXE">Mangalore (IXE)</option>
-                        <option value="IXJ">Jammu (IXJ)</option>
-                        <option value="IXL">Leh (IXL)</option>
-                        <option value="IXM">Madurai (IXM)</option>
-                        <option value="IXR">Ranchi (IXR)</option>
-                        <option value="IXS">Silchar (IXS)</option>
-                        <option value="IXU">Aurangabad (IXU)</option>
-                        <option value="IXZ">Port Blair (IXZ)</option>
-                        <option value="JAI">Jaipur (JAI)</option>
-                        <option value="LKO">Lucknow (LKO)</option>
-                        <option value="PAT">Patna (PAT)</option>
-                        <option value="PNQ">Pune (PNQ)</option>
-                        <option value="SXR">Srinagar (SXR)</option>
-                        <option value="TRV">Thiruvananthapuram (TRV)</option>
-                        <option value="VGA">Vijayawada (VGA)</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label>Your Future Name (or generate random):</label>
-                    <div style="display: flex; gap: 1rem;">
-                        <input type="text" id="futureName" placeholder="Enter your future name" style="flex: 1;" />
-                        <button onclick="generateRandomName()" style="margin-top: 0; width: auto;">RANDOM</button>
-                    </div>
-                    <div id="nameAvailability" style="margin-top: 0.5rem; font-size: 0.9rem; display: none;"></div>
-                </div>
-
-                <button onclick="generateFutureID()">GENERATE FUTURE ID</button>
-
-                <div class="user-id-output" id="futureIdOutput">
-                    <div style="color: white;">YOUR IPNOTEC FUTURE ID IS:</div>
-                    <div class="future-id-display">
-                        <span class="future-id-part1" id="futureIdPart1"></span>.<span class="future-id-part2" id="futureIdPart2"></span>.<span class="future-id-part3" id="futureIdPart3"></span>
-                    </div>
-                    <div style="margin-top: 1rem; font-size: 1rem;">This is unique to you.</div>
-                </div>
-                
-                <button id="paymentBtn" class="payment-btn" onclick="simulatePayment()">PAY 1001 ONE TIME</button>
-                
-                <button id="loginBtn" class="login-btn" onclick="loginToPC()">LOGIN TO VIRTUAL PC</button>
+            
+            <button id="calculate-dob">Calculate Past Sum</button>
+            
+            <div class="result-display" id="dob-result">
+                <div>Your Past Sum: <span class="number" id="dob-sum">0</span></div>
             </div>
         </div>
-    </section>
+    </div>
+    
+    <!-- Screen 3: PRESENT CARD -->
+    <div class="screen" id="screen-3">
+        <div class="card">
+            <h2 class="card-title">PRESENT CARD</h2>
+            <p style="text-align: center; margin-bottom: 1.5rem; opacity: 0.8;">Your current connection to the digital world</p>
+            
+            <div class="phone-container">
+                <div class="input-group">
+                    <label for="country-code">Country Code</label>
+                    <input type="text" id="country-code" placeholder="+1" maxlength="4">
+                </div>
+                <div class="input-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" placeholder="Phone Number">
+                </div>
+            </div>
+            
+            <button id="calculate-phone">Calculate Present Sum</button>
+            
+            <div class="result-display" id="phone-result">
+                <div>Your Present Sum: <span class="number" id="phone-sum">0</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Screen 4: MY IP -->
+    <div class="screen" id="screen-4">
+        <div class="card">
+            <h2 class="card-title">MY IP</h2>
+            <p style="text-align: center; margin-bottom: 1.5rem; opacity: 0.8;">Your unique identity in the IPNOTEC ecosystem</p>
+            
+            <div class="result-display active">
+                <div>Your Past Sum: <span class="number" id="display-dob-sum">0</span></div>
+                <div>Your Present Sum: <span class="number" id="display-phone-sum">0</span></div>
+                <div style="margin-top: 1rem;">Your IP: <span class="number" id="ip-number">0</span></div>
+                <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                    This is the number that connects your past and present
+                </p>
+            </div>
+            
+            <button id="proceed-to-future">STEP INTO THE FUTURE</button>
+        </div>
+    </div>
+    
+    <!-- Screen 5: FUTURE CARD -->
+    <div class="screen" id="screen-5">
+        <div class="card">
+            <h2 class="card-title">FUTURE CARD</h2>
+            <p style="text-align: center; margin-bottom: 1.5rem; opacity: 0.8;">Create your future identity in the IPNOTEC ecosystem</p>
+            
+            <div class="input-group">
+                <label>FUTURE TRIBE (VIBGYOR)</label>
+                <div class="color-options">
+                    <div class="color-option violet" data-color="violet" data-name="Violet Visionary">
+                        <div>Violet</div>
+                        <div>Visionary</div>
+                    </div>
+                    <div class="color-option indigo" data-color="indigo" data-name="Indigo Innovator">
+                        <div>Indigo</div>
+                        <div>Innovator</div>
+                    </div>
+                    <div class="color-option blue" data-color="blue" data-name="Blue Strategist">
+                        <div>Blue</div>
+                        <div>Strategist</div>
+                    </div>
+                    <div class="color-option green" data-color="green" data-name="Green Entrepreneur">
+                        <div>Green</div>
+                        <div>Entrepreneur</div>
+                    </div>
+                    <div class="color-option yellow" data-color="yellow" data-name="Yellow Pioneer">
+                        <div>Yellow</div>
+                        <div>Pioneer</div>
+                    </div>
+                    <div class="color-option orange" data-color="orange" data-name="Orange Creator">
+                        <div>Orange</div>
+                        <div>Creator</div>
+                    </div>
+                    <div class="color-option red" data-color="red" data-name="Red Disruptor">
+                        <div>Red</div>
+                        <div>Disruptor</div>
+                    </div>
+                    <div class="color-option grey" data-color="grey" data-name="Grey Analyst">
+                        <div>Grey</div>
+                        <div>Analyst</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="future-city">FUTURE CITY</label>
+                <input type="text" id="future-city" placeholder="Enter your future city">
+            </div>
+            
+            <div class="input-group">
+                <label for="future-gender">FUTURE GENDER</label>
+                <select id="future-gender">
+                    <option value="Neutral">Neutral</option>
+                    <option value="Masculine">Masculine</option>
+                    <option value="Feminine">Feminine</option>
+                    <option value="Fluid">Fluid</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label for="future-name">FUTURE NAME</label>
+                <input type="text" id="future-name" placeholder="Enter your future name">
+            </div>
+            
+            <div class="payment-section">
+                <div class="payment-amount">Payment: ₹1001</div>
+                <p style="text-align: center; margin-bottom: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                    Secure your unique identity in the IPNOTEC ecosystem
+                </p>
+                <button id="make-payment">PAY & GENERATE ID</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Screen 6: FINAL SCREEN -->
+    <div class="screen final-screen" id="screen-6">
+        <h1 class="final-title">V[IP]</h1>
+        <div class="user-id" id="final-user-id">IPNOTEC.VIP/UserID</div>
+        <div class="final-message" id="final-message">SEE YOU IN THE FUTURE, <span id="future-name-display">User</span></div>
+        
+        <div class="progress-indicator">
+            <div class="progress-dot active"></div>
+            <div class="progress-dot active"></div>
+            <div class="progress-dot active"></div>
+            <div class="progress-dot active"></div>
+            <div class="progress-dot active"></div>
+            <div class="progress-dot active"></div>
+        </div>
+    </div>
 
     <!-- Virtual PC Section -->
     <section id="pcSection" class="section hidden">
@@ -1944,6 +1886,14 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Global variables
+        let currentScreen = 1;
+        let dobSum = 0;
+        let phoneSum = 0;
+        let ipNumber = 0;
+        let selectedTribe = 'blue';
+        let selectedTribeName = 'Blue Strategist';
+        
+        // Virtual PC variables
         let currentColor = 'green';
         let currentColorCode = 'IPG';
         let ipcCode = 0;
@@ -1983,58 +1933,163 @@
             black: ["Void", "Abyss", "Onyx", "Shadow", "Eclipse", "Midnight", "Obsidian"]
         };
 
-        // Set up color selection
+        // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
-            const colorOptions = document.querySelectorAll('.color-option');
-            
-            colorOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    // Remove selected class from all options
-                    colorOptions.forEach(opt => opt.classList.remove('selected'));
-                    
-                    // Add selected class to clicked option
-                    this.classList.add('selected');
-                    
-                    // Set current color
-                    currentColor = this.dataset.color;
-                    currentColorCode = this.dataset.code;
-                    
-                    // Update UI colors
-                    updateColorTheme();
-                });
-            });
-            
-            // Select default color
-            document.querySelector('.color-option[data-color="green"]').classList.add('selected');
-            
             // Set max date for DOB to today
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('dob').setAttribute('max', today);
             
-            // Add event listener for future name input to check availability
-            document.getElementById('futureName').addEventListener('input', checkNameAvailability);
+            // Create circuit background
+            createCircuitBackground();
+            
+            // Set up event listeners
+            document.getElementById('blinking-i').addEventListener('click', nextScreen);
+            document.getElementById('reset-button').addEventListener('click', resetApp);
+            document.getElementById('calculate-dob').addEventListener('click', calculateDOBSum);
+            document.getElementById('calculate-phone').addEventListener('click', calculatePhoneSum);
+            document.getElementById('proceed-to-future').addEventListener('click', nextScreen);
+            document.getElementById('make-payment').addEventListener('click', generateFinalID);
+            
+            // Set up tribe selection
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from all options
+                    document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Set selected tribe
+                    selectedTribe = this.dataset.color;
+                    selectedTribeName = this.dataset.name;
+                    
+                    // Update theme color
+                    updateThemeColor(selectedTribe);
+                });
+            });
+            
+            // Select default tribe
+            document.querySelector('.color-option[data-color="blue"]').classList.add('selected');
+            updateThemeColor('blue');
+            
+            // Virtual PC initialization
+            const pcPower = document.getElementById('pcPower');
+            const mainContent = document.getElementById('mainContent');
+            const bootScreen = document.getElementById('bootScreen');
+            
+            pcPower.addEventListener('click', function() {
+                if (mainContent.style.display === 'none') {
+                    // Power on
+                    this.innerHTML = '<i class="fas fa-power-off" style="color: var(--green)"></i>';
+                    bootScreen.style.display = 'flex';
+                    setTimeout(simulateBoot, 500);
+                } else {
+                    // Power off
+                    this.innerHTML = '<i class="fas fa-power-off"></i>';
+                    mainContent.style.display = 'none';
+                    bootScreen.style.display = 'flex';
+                    bootScreen.style.opacity = '1';
+                    document.getElementById('bootProgress').style.width = '0';
+                    document.getElementById('bootStatus').textContent = 'System powered off';
+                    
+                    // Close all apps
+                    document.querySelectorAll('.app-window').forEach(app => {
+                        app.style.display = 'none';
+                    });
+                }
+            });
+            
+            // Terminal functionality
+            const enterBtn = document.querySelector('.enter-btn');
+            const terminalWindow = document.getElementById('terminalWindow');
+            const terminalBody = document.getElementById('terminalBody');
+            
+            if (enterBtn) {
+                enterBtn.addEventListener('click', function() {
+                    // Hide button and show terminal
+                    enterBtn.style.display = 'none';
+                    terminalWindow.style.display = 'block';
+                    
+                    // Scroll to bottom of terminal
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                    
+                    // After a delay, simulate typing the next command
+                    setTimeout(() => {
+                        const cursor = document.querySelector('.cursor');
+                        if (cursor) cursor.style.display = 'none';
+                        
+                        const newCommand = document.createElement('div');
+                        newCommand.className = 'command';
+                        newCommand.textContent = '> CONNECT USER';
+                        terminalBody.appendChild(newCommand);
+                        
+                        const newResponse = document.createElement('div');
+                        newResponse.className = 'response';
+                        terminalBody.appendChild(newResponse);
+                        
+                        typeWriter(
+                            "USER CONNECTED\n" +
+                            "-----------------------\n" +
+                            "IPNOTEC ID: " + userFutureID + "\n" +
+                            "STATUS: <span class=\"green\">ACTIVE</span>\n\n" +
+                            "> READY FOR PORTAL ENTRY",
+                            newResponse,
+                            30,
+                            function() {
+                                // Add blinking cursor at the end
+                                const cursor = document.createElement('span');
+                                cursor.className = 'cursor';
+                                newResponse.appendChild(cursor);
+                                
+                                // Scroll to bottom
+                                terminalBody.scrollTop = terminalBody.scrollHeight;
+                            }
+                        );
+                    }, 1500);
+                });
+            }
         });
         
-        function updateColorTheme() {
-            const colorValue = getComputedStyle(document.documentElement).getPropertyValue(`--${currentColor}`);
-            document.documentElement.style.setProperty('--current-color', colorValue);
-            document.documentElement.style.setProperty('--active-color', colorValue);
+        // Create circuit background with social media colors
+        function createCircuitBackground() {
+            const circuitBg = document.getElementById('circuit-background');
+            const socialColors = ['facebook', 'twitter', 'instagram', 'youtube', 'tiktok', 'whatsapp'];
             
-            // Update PC color if visible
-            if (!document.getElementById('pcSection').classList.contains('hidden')) {
-                document.getElementById('virtualPc').style.borderColor = colorValue;
-                document.querySelectorAll('.app-window').forEach(app => {
-                    app.style.borderColor = colorValue;
-                });
-                
-                // Update active color in PC picker
-                document.querySelectorAll('.pc-color-option').forEach(option => {
-                    option.classList.remove('active');
-                });
-                document.querySelector(`.pc-color-option.${currentColor}`).classList.add('active');
+            // Create circuit lines
+            for (let i = 0; i < 20; i++) {
+                const line = document.createElement('div');
+                line.className = `circuit-line ${socialColors[i % socialColors.length]}-color`;
+                line.style.top = `${Math.random() * 100}%`;
+                line.style.animationDelay = `${Math.random() * 3}s`;
+                circuitBg.appendChild(line);
+            }
+            
+            // Create circuit nodes
+            for (let i = 0; i < 50; i++) {
+                const node = document.createElement('div');
+                node.className = `circuit-node ${socialColors[i % socialColors.length]}-color`;
+                node.style.left = `${Math.random() * 100}%`;
+                node.style.top = `${Math.random() * 100}%`;
+                circuitBg.appendChild(node);
             }
         }
         
+        // Update theme color
+        function updateThemeColor(color) {
+            // Remove all color theme classes
+            document.body.classList.remove(
+                'violet-theme', 'indigo-theme', 'blue-theme', 'green-theme',
+                'yellow-theme', 'orange-theme', 'red-theme', 'grey-theme'
+            );
+            
+            // Add the selected color theme
+            document.body.classList.add(`${color}-theme`);
+            
+            // Update CSS variable
+            document.documentElement.style.setProperty('--current-color', getComputedStyle(document.body).getPropertyValue(`--${color}`));
+        }
+        
+        // Calculate digital root (sum to single digit)
         function digitalRoot(num) {
             while (num >= 10) {
                 num = num.toString().split('').reduce((a, b) => a + parseInt(b), 0);
@@ -2042,18 +2097,34 @@
             return num;
         }
         
-        function validatePhone(phone) {
-            // Remove all non-digit characters
-            return phone.replace(/\D/g, '');
+        // Calculate DOB sum
+        function calculateDOBSum() {
+            const dob = document.getElementById('dob').value;
+            
+            if (!dob) {
+                alert("Please enter your Date of Birth.");
+                return;
+            }
+            
+            // Calculate sum of all digits in DOB
+            const dobDigits = dob.replace(/\D/g, '');
+            dobSum = digitalRoot(dobDigits.split('').reduce((sum, d) => sum + parseInt(d), 0));
+            
+            // Display result
+            document.getElementById('dob-sum').textContent = dobSum;
+            document.getElementById('dob-result').classList.add('active');
+            
+            // Move to next screen after delay
+            setTimeout(nextScreen, 1500);
         }
         
-        function generateVIP() {
-            // Get country code and phone number
-            const countryCode = document.getElementById('countryCode').value;
-            const phone = validatePhone(document.getElementById('phone').value);
+        // Calculate phone sum
+        function calculatePhoneSum() {
+            const countryCode = document.getElementById('country-code').value.replace(/\D/g, '');
+            const phone = document.getElementById('phone').value.replace(/\D/g, '');
             
             if (countryCode.length === 0) {
-                alert("Please select a country code.");
+                alert("Please enter a valid country code.");
                 return;
             }
             
@@ -2062,159 +2133,138 @@
                 return;
             }
             
-            // Get date of birth
-            const dobRaw = document.getElementById('dob').value;
-            
-            if (!dobRaw) {
-                alert("Please enter a valid Date of Birth.");
-                return;
-            }
-            
-            // Combine country code and phone number
+            // Calculate sum of all digits in phone number
             const phoneDigits = countryCode + phone;
+            phoneSum = digitalRoot(phoneDigits.split('').reduce((sum, d) => sum + parseInt(d), 0));
             
-            // Calculate phone sum and digital root
-            const phoneSum = phoneDigits.split('').reduce((sum, d) => sum + parseInt(d), 0);
-            const phoneSingle = digitalRoot(phoneSum);
+            // Calculate IP number (the number that when added to phoneSum equals dobSum)
+            ipNumber = (dobSum - phoneSum + 9) % 9 || 9;
             
-            // Calculate DOB sum and digital root
-            const dobDigits = dobRaw.replace(/\D/g, '');
-            const dobSum = dobDigits.split('').reduce((sum, d) => sum + parseInt(d), 0);
-            const dobSingle = digitalRoot(dobSum);
+            // Display result
+            document.getElementById('phone-sum').textContent = phoneSum;
+            document.getElementById('phone-result').classList.add('active');
             
-            // Calculate IP-Code
-            let ipc = dobSingle - phoneSingle;
-            ipcCode = ipc >= 0 ? ipc : 9 + ipc;
+            // Update display for next screen
+            document.getElementById('display-dob-sum').textContent = dobSum;
+            document.getElementById('display-phone-sum').textContent = phoneSum;
+            document.getElementById('ip-number').textContent = ipNumber;
             
-            // Generate V[IP]
-            finalVIP = phoneDigits + ipcCode;
-            
-            // Display results in the new order
-            document.getElementById('output').classList.add('active');
-            document.getElementById('dobSum').innerText = dobSingle;
-            document.getElementById('phoneSum').innerText = phoneSingle;
-            document.getElementById('ipcCode').innerText = ipcCode;
-            document.getElementById('finalVIP').innerText = finalVIP;
-            
-            // Show Future ID section
-            document.getElementById('futureIdSection').classList.add('active');
-            
-            // Scroll to Future ID section
-            document.getElementById('futureIdSection').scrollIntoView({ behavior: 'smooth' });
+            // Move to next screen after delay
+            setTimeout(nextScreen, 1500);
         }
         
-        function checkNameAvailability() {
-            const futureName = document.getElementById('futureName').value.trim();
-            const availabilityDiv = document.getElementById('nameAvailability');
+        // Generate final ID
+        function generateFinalID() {
+            const futureCity = document.getElementById('future-city').value;
+            const futureGender = document.getElementById('future-gender').value;
+            const futureName = document.getElementById('future-name').value;
             
-            if (futureName.length === 0) {
-                availabilityDiv.style.display = 'none';
+            if (!futureCity || !futureName) {
+                alert("Please complete all future identity fields.");
                 return;
             }
             
-            if (takenNames.includes(futureName)) {
-                availabilityDiv.innerHTML = '<span style="color: var(--red);">This name is already taken. Please choose another.</span>';
-                availabilityDiv.style.display = 'block';
-            } else {
-                availabilityDiv.innerHTML = '<span style="color: var(--green);">This name is available!</span>';
-                availabilityDiv.style.display = 'block';
-            }
-        }
-        
-        function generateRandomName() {
-            const names = randomNames[currentColor];
-            let randomName;
-            do {
-                randomName = names[Math.floor(Math.random() * names.length)];
-            } while (takenNames.includes(randomName));
+            // Generate unique user ID
+            const userId = `IPNOTEC.VIP/${selectedTribe.toUpperCase()}/${futureName.replace(/\s/g, '')}${ipNumber}`;
             
-            document.getElementById('futureName').value = randomName;
-            checkNameAvailability();
-        }
-        
-        function generateFutureID() {
-            const futureCity = document.getElementById('futureCity').value;
-            let futureName = document.getElementById('futureName').value.trim();
+            // Display final ID
+            document.getElementById('final-user-id').textContent = userId;
+            document.getElementById('future-name-display').textContent = futureName;
             
-            if (!futureCity) {
-                alert("Please select your Future City.");
-                return;
-            }
+            // Store for Virtual PC
+            userFutureID = userId;
             
-            if (!futureName) {
-                alert("Please enter or generate your Future Name.");
-                return;
-            }
+            // Move to final screen
+            nextScreen();
             
-            // Check if name is taken
-            if (takenNames.includes(futureName)) {
-                alert("This name is already taken. Please choose another.");
-                return;
-            }
-            
-            // Format the Future ID
-            document.getElementById('futureIdPart1').innerText = currentColorCode;
-            document.getElementById('futureIdPart2').innerText = futureCity;
-            document.getElementById('futureIdPart3').innerText = futureName;
-            
-            // Apply color to parts
-            const colorValue = getComputedStyle(document.documentElement).getPropertyValue(`--${currentColor}`);
-            document.querySelector('.future-id-part1').style.color = colorValue;
-            document.querySelector('.future-id-part2').style.color = colorValue;
-            
-            // Show the Future ID
-            document.getElementById('futureIdOutput').classList.add('active');
-            
-            // Store the future ID
-            userFutureID = `${currentColorCode}.${futureCity}.${futureName}`;
-            
-            // Show Payment button
-            document.getElementById('paymentBtn').classList.add('active');
-            
-            // Scroll to Payment button
-            document.getElementById('paymentBtn').scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        function simulatePayment() {
-            // Simulate payment processing
-            document.getElementById('paymentBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESSING PAYMENT...';
-            document.getElementById('paymentBtn').disabled = true;
-            
+            // After a delay, transition to Virtual PC
             setTimeout(() => {
-                // Payment successful
-                paymentCompleted = true;
-                document.getElementById('paymentBtn').innerHTML = '<i class="fas fa-check"></i> PAYMENT SUCCESSFUL';
-                document.getElementById('paymentBtn').style.background = 'var(--green)';
+                // Hide all screens
+                document.querySelectorAll('.screen').forEach(screen => {
+                    screen.classList.remove('active');
+                });
                 
-                // Enable Login button
-                document.getElementById('loginBtn').classList.add('active');
+                // Show Virtual PC section
+                document.getElementById('pcSection').classList.remove('hidden');
                 
-                // Scroll to Login button
-                document.getElementById('loginBtn').scrollIntoView({ behavior: 'smooth' });
-            }, 2000);
+                // Update PC with user details
+                document.getElementById('userSignature').textContent = userFutureID;
+                document.getElementById('userModel').textContent = `MODEL: ${userFutureID}`;
+                
+                // Set PC color to match user's chosen color
+                updateColorTheme();
+                
+                // Initialize PC
+                setTimeout(() => {
+                    document.getElementById('pcPower').click();
+                }, 500);
+            }, 3000);
         }
         
-        function loginToPC() {
-            if (!paymentCompleted) {
-                alert("Please complete the payment first.");
-                return;
+        // Move to next screen
+        function nextScreen() {
+            // Hide current screen
+            document.getElementById(`screen-${currentScreen}`).classList.remove('active');
+            
+            // Move to next screen
+            currentScreen++;
+            
+            // Show next screen
+            document.getElementById(`screen-${currentScreen}`).classList.add('active');
+            
+            // Update progress indicator
+            updateProgressIndicator();
+            
+            // Reduce circuit brightness after first screen
+            if (currentScreen > 1) {
+                document.getElementById('circuit-background').style.opacity = 0.3;
             }
+        }
+        
+        // Update progress indicator
+        function updateProgressIndicator() {
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((dot, index) => {
+                if (index < currentScreen) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        // Reset the app
+        function resetApp() {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
             
-            // Hide VIP section and show PC section
-            document.getElementById('vipSection').classList.add('hidden');
-            document.getElementById('pcSection').classList.remove('hidden');
+            // Show first screen
+            document.getElementById('screen-1').classList.add('active');
             
-            // Update PC with user details
-            document.getElementById('userSignature').textContent = userFutureID;
-            document.getElementById('userModel').textContent = `MODEL: ${userFutureID}`;
+            // Reset variables
+            currentScreen = 1;
+            dobSum = 0;
+            phoneSum = 0;
+            ipNumber = 0;
             
-            // Set PC color to match user's chosen color
-            updateColorTheme();
+            // Reset form fields
+            document.getElementById('dob').value = '';
+            document.getElementById('country-code').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('future-city').value = '';
+            document.getElementById('future-name').value = '';
             
-            // Initialize PC
-            setTimeout(() => {
-                document.getElementById('pcPower').click();
-            }, 500);
+            // Reset results displays
+            document.getElementById('dob-result').classList.remove('active');
+            document.getElementById('phone-result').classList.remove('active');
+            
+            // Reset circuit brightness
+            document.getElementById('circuit-background').style.opacity = 0.7;
+            
+            // Reset progress indicator
+            updateProgressIndicator();
         }
         
         // Virtual PC Functions
@@ -2543,86 +2593,6 @@
                 alert(`Payment successful! You have purchased ${serviceName}.`);
             }, 1500);
         }
-        
-        // Initialize PC
-        document.addEventListener('DOMContentLoaded', function() {
-            // Start with PC turned off
-            const pcPower = document.getElementById('pcPower');
-            const mainContent = document.getElementById('mainContent');
-            const bootScreen = document.getElementById('bootScreen');
-            
-            pcPower.addEventListener('click', function() {
-                if (mainContent.style.display === 'none') {
-                    // Power on
-                    this.innerHTML = '<i class="fas fa-power-off" style="color: var(--green)"></i>';
-                    bootScreen.style.display = 'flex';
-                    setTimeout(simulateBoot, 500);
-                } else {
-                    // Power off
-                    this.innerHTML = '<i class="fas fa-power-off"></i>';
-                    mainContent.style.display = 'none';
-                    bootScreen.style.display = 'flex';
-                    bootScreen.style.opacity = '1';
-                    document.getElementById('bootProgress').style.width = '0';
-                    document.getElementById('bootStatus').textContent = 'System powered off';
-                    
-                    // Close all apps
-                    document.querySelectorAll('.app-window').forEach(app => {
-                        app.style.display = 'none';
-                    });
-                }
-            });
-            
-            // Terminal functionality
-            const enterBtn = document.querySelector('.enter-btn');
-            const terminalWindow = document.getElementById('terminalWindow');
-            const terminalBody = document.getElementById('terminalBody');
-            
-            if (enterBtn) {
-                enterBtn.addEventListener('click', function() {
-                    // Hide button and show terminal
-                    enterBtn.style.display = 'none';
-                    terminalWindow.style.display = 'block';
-                    
-                    // Scroll to bottom of terminal
-                    terminalBody.scrollTop = terminalBody.scrollHeight;
-                    
-                    // After a delay, simulate typing the next command
-                    setTimeout(() => {
-                        const cursor = document.querySelector('.cursor');
-                        if (cursor) cursor.style.display = 'none';
-                        
-                        const newCommand = document.createElement('div');
-                        newCommand.className = 'command';
-                        newCommand.textContent = '> CONNECT USER';
-                        terminalBody.appendChild(newCommand);
-                        
-                        const newResponse = document.createElement('div');
-                        newResponse.className = 'response';
-                        terminalBody.appendChild(newResponse);
-                        
-                        typeWriter(
-                            "USER CONNECTED\n" +
-                            "-----------------------\n" +
-                            "IPNOTEC ID: " + userFutureID + "\n" +
-                            "STATUS: <span class=\"green\">ACTIVE</span>\n\n" +
-                            "> READY FOR PORTAL ENTRY",
-                            newResponse,
-                            30,
-                            function() {
-                                // Add blinking cursor at the end
-                                const cursor = document.createElement('span');
-                                cursor.className = 'cursor';
-                                newResponse.appendChild(cursor);
-                                
-                                // Scroll to bottom
-                                terminalBody.scrollTop = terminalBody.scrollHeight;
-                            }
-                        );
-                    }, 1500);
-                });
-            }
-        });
     </script>
 </body>
 </html>
